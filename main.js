@@ -24,3 +24,30 @@ const observer = new IntersectionObserver(
 );
 
 sections.forEach((s) => observer.observe(s));
+
+// Tema (claro/escuro)
+const themeToggle = document.getElementById("theme-toggle");
+const themeStorageKey = "site-theme";
+
+function setTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-theme", isDark);
+  themeToggle.textContent = isDark ? "Modo claro" : "Modo escuro";
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+}
+
+const savedTheme = localStorage.getItem(themeStorageKey);
+if (savedTheme === "dark" || savedTheme === "light") {
+  setTheme(savedTheme);
+} else {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(prefersDark ? "dark" : "light");
+}
+
+themeToggle.addEventListener("click", () => {
+  const nextTheme = document.body.classList.contains("dark-theme")
+    ? "light"
+    : "dark";
+  setTheme(nextTheme);
+  localStorage.setItem(themeStorageKey, nextTheme);
+});
