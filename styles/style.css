@@ -256,9 +256,7 @@ footer {
   justify-content: center;
   width: 34px;
   height: 34px;
-  border: 1px solid #d2d8e5;
   border-radius: 999px;
-  background: #f7f9ff;
 }
 
 .footer-actions a:hover {
