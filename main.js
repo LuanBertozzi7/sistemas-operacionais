@@ -1,4 +1,3 @@
-// Barra de Progresso
 const bar = document.getElementById("progress");
 window.addEventListener("scroll", () => {
   const scrolled = window.scrollY;
@@ -25,15 +24,29 @@ const observer = new IntersectionObserver(
 
 sections.forEach((s) => observer.observe(s));
 
-// Tema (claro/escuro)
 const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const themeLabel = document.getElementById("theme-label");
 const themeStorageKey = "site-theme";
+const githubSVG = document.getElementById("github-svg");
+const githubIconLight = "./resources/github.svg";
+const githubIconDark = "./resources/github-clean.svg";
+const themeIconMoon = "./resources/moon.svg";
+const themeIconSun = "./resources/sun.svg";
 
 function setTheme(theme) {
   const isDark = theme === "dark";
   document.body.classList.toggle("dark-theme", isDark);
-  themeToggle.textContent = isDark ? "Modo claro" : "Modo escuro";
+  themeLabel.textContent = isDark ? "Modo claro" : "Modo escuro";
   themeToggle.setAttribute("aria-pressed", String(isDark));
+
+  if (themeIcon) {
+    themeIcon.src = isDark ? themeIconSun : themeIconMoon;
+  }
+
+  if (githubSVG) {
+    githubSVG.src = isDark ? githubIconDark : githubIconLight;
+  }
 }
 
 const savedTheme = localStorage.getItem(themeStorageKey);
