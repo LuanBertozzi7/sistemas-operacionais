@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistemas Operacionais — Credip + Dotum</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <script src="./main.js" defer></script>
+  </head>
+  <body>
+    <div id="progress"></div>
+
+    <header>
+      <div class="meta">
+        <span class="green">Credip</span> +
+        <span class="orange">Dotum</span>&nbsp;·&nbsp;
+        <b>Formação Técnica</b>
+        &nbsp;
+      </div>
+      <h1>Sistemas Operacionais</h1>
+      <p class="subtitle">
+        Uma visão sobre os fundamentos, arquitetura e famílias de sistemas
+        operacionais...
+      </p>
+    </header>
+
+    <nav class="toc">
+      <div class="toc-title">Índice</div>
+      <ol>
+        <li><a href="#s1">Fundamentos de Sistemas Operacionais</a></li>
+        <li><a href="#s2">Kernel, Processos e Threads</a></li>
+        <li><a href="#s3">Multitarefa e Multiprogramação</a></li>
+        <li><a href="#s4">Tipos de Sistemas Operacionais</a></li>
+        <li><a href="#s5">Famílias de Sistemas Operacionais</a></li>
+        <li><a href="#s6">Aplicativos, Utilitários e Serviços</a></li>
+        <li><a href="#s7">Tipos de Interfaces (CLI e GUI)</a></li>
+        <li><a href="#s8">Sistema de Arquivos</a></li>
+        <li>
+          <a href="#s9">Aplicativos, Utilitários e Serviços (aprofundado)</a>
+        </li>
+        <li><a href="#s10">Virtualização</a></li>
+      </ol>
+    </nav>
+
+    <section id="s1">
+      <h2>1. Fundamentos de Sistemas Operacionais</h2>
+      <p>
+        Um <mark class="blue">Sistema Operacional</mark> é o software que
+        gerencia todos os recursos de um computador, incluindo hardware e
+        programas. Ele é responsável por controlar o fluxo de informações do
+        processador e permite que usuários interajam com seus dispositivos sem
+        precisar conhecer o hardware a fundo.
+      </p>
+      <p>
+        Em nível técnico, o SO fica entre o
+        <mark class="orange">hardware</mark> e os softwares utilitários, com
+        acesso direto à CPU, RAM, disco, GPU e rede.
+      </p>
+      <p>
+        Na prática, ele também resolve conflitos de acesso: dois programas podem
+        querer gravar no disco ao mesmo tempo, por exemplo. Sem coordenação do
+        SO, haveria corrupção de dados, travamentos frequentes e desperdício de
+        recursos.
+      </p>
+
+      <h3>As Camadas — do Hardware ao Aplicativo</h3>
+      <ul>
+        <li>
+          <mark class="orange">Hardware</mark>: CPU, RAM, SSD, placa de rede,
+          GPU.
+        </li>
+        <li>
+          <mark class="red">Kernel (Núcleo)</mark>: parte central, controla
+          diretamente o hardware.
+        </li>
+        <li>
+          <mark class="gray">Drivers</mark>: "tradutores" entre o Kernel e os
+          dispositivos.
+        </li>
+        <li>
+          <mark class="gray">Serviços do Sistema (daemons)</mark>: rede, logs,
+          áudio, impressão, atualizações.
+        </li>
+        <li>
+          <mark class="green">Bibliotecas e APIs</mark>: funções prontas que os
+          aplicativos usam.
+        </li>
+        <li><mark class="purple">Interface do Usuário</mark>: CLI ou GUI.</li>
+      </ul>
+
+      <h3>A Real Vantagem de um Sistema Operacional</h3>
+      <p>
+        O SO cria uma <strong>camada de abstração</strong>: programas não
+        precisam saber como cada peça física funciona. Um SO bem feito organiza
+        o caos do hardware e transforma em algo utilizável.
+      </p>
+      <p>
+        Em outras palavras, é o componente que converte capacidade bruta em
+        experiência de uso. Quando abrimos um editor de texto e tudo
+        "simplesmente funciona", existe uma longa cadeia de decisões do sistema
+        acontecendo em milissegundos.
+      </p>
+      <blockquote>
+        "Operating systems perform two basic functions: extending the machine
+        and managing resources." — Tanenbaum
+      </blockquote>
+    </section>
+
+    <hr />
+
+    <section id="s2">
+      <h2>2. Kernel, Processos e Threads</h2>
+
+      <h3>O que é o Kernel</h3>
+      <p>
+        O <mark class="red">Kernel</mark> é o núcleo do sistema operacional — a
+        parte com nível máximo de privilégio no hardware. Age como intermediário
+        entre o hardware e os programas, garantindo uso organizado, seguro e
+        eficiente dos recursos.
+      </p>
+      <p>Suas principais responsabilidades:</p>
+      <ul>
+        <li>
+          <strong>Gerenciamento da CPU</strong>: decide qual processo executa a
+          cada momento, via algoritmos de escalonamento.
+        </li>
+        <li>
+          <strong>Gerenciamento de memória</strong>: aloca RAM para processos,
+          gerencia paginação, cache e swap.
+        </li>
+        <li>
+          <strong>Gerenciamento de dispositivos (I/O)</strong>: controla discos,
+          rede, teclado, mouse, USB e GPU — via drivers.
+        </li>
+        <li>
+          <strong>Segurança e isolamento</strong>: controla permissões e mantém
+          processos isolados.
+        </li>
+        <li>
+          <mark class="green">System Calls</mark>: interfaces que programas usam
+          para solicitar operações ao kernel.
+        </li>
+      </ul>
+      <p>
+        Do ponto de vista de arquitetura, o kernel é um "árbitro". Ele define
+        prioridade, ordem e limites para que múltiplas tarefas convivam sem
+        comprometer desempenho e segurança.
+      </p>
+
+      <h3>Processos</h3>
+      <p>
+        Um <mark class="purple">processo</mark> é uma instância de um programa
+        em execução. Cada processo possui espaço de memória isolado, recursos do
+        sistema, estado de execução e pilha próprios. Esse isolamento impede que
+        um programa interfira na memória de outro.
+      </p>
+      <p>
+        Em sistemas multitarefa, o SO alterna rapidamente entre processos via
+        <mark class="blue">time slicing</mark>, criando a impressão de execução
+        simultânea.
+      </p>
+      <p>
+        Cada processo possui estados clássicos como novo, pronto, executando,
+        bloqueado e finalizado. Entender essa transição ajuda a diagnosticar
+        lentidão, gargalos de I/O e consumo excessivo de memória.
+      </p>
+
+      <h3>Threads</h3>
+      <p>
+        Uma <mark class="orange">thread</mark> é uma unidade menor de execução
+        dentro de um processo. Enquanto processos têm memória própria, threads
+        compartilham os recursos do processo ao qual pertencem — memória,
+        variáveis globais, arquivos abertos.
+      </p>
+      <p>
+        Exemplo: um navegador pode ter uma thread carregando a interface, outra
+        baixando arquivos e outra executando scripts — tudo no mesmo processo.
+      </p>
+      <p>
+        O ganho é responsividade, mas existe um custo: threads compartilham
+        memória, então problemas de concorrência (race condition, deadlock e
+        starvation) precisam ser tratados com sincronização adequada.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s3">
+      <h2>3. Multitarefa e Multiprogramação</h2>
+
+      <h3>Multitarefa</h3>
+      <p>
+        É a capacidade do SO de executar várias tarefas ao mesmo tempo. Em CPUs
+        com um único núcleo, o sistema divide o tempo em pequenas partes e
+        alterna entre programas via <mark class="blue">time slicing</mark> — tão
+        rápido que parece simultâneo. Em CPUs com vários núcleos, as tarefas
+        realmente executam em paralelo.
+      </p>
+
+      <h3>Multiprogramação</h3>
+      <p>
+        Técnica cujo objetivo é
+        <strong>aproveitar melhor o tempo da CPU</strong>. Vários programas
+        ficam carregados na memória ao mesmo tempo. Quando um programa espera
+        por uma operação de disco ou rede, o SO usa esse tempo para executar
+        outro. O resultado é um sistema mais eficiente.
+      </p>
+      <p>
+        Em termos de produtividade do sistema, isso reduz tempo ocioso da CPU e
+        melhora throughput. Em servidores, esse comportamento é crucial para
+        atender múltiplas requisições simultâneas com estabilidade.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s4">
+      <h2>4. Tipos de Sistemas Operacionais</h2>
+
+      <h3>Monotarefa</h3>
+      <p>
+        Executa apenas um programa por vez. Todos os recursos ficam dedicados
+        àquela tarefa até sua conclusão. Modelo clássico do MS-DOS nas décadas
+        de 1980/90.
+      </p>
+
+      <h3>Multitarefa</h3>
+      <p>Executa vários programas simultaneamente. Existem dois modelos:</p>
+      <ul>
+        <li>
+          <strong>Cooperativa</strong>: cada programa cede voluntariamente o
+          controle da CPU. Se não liberar, pode travar o sistema.
+        </li>
+        <li>
+          <strong>Preemptiva</strong>: o kernel controla totalmente a CPU e pode
+          interromper processos. Muito mais estável. Todos os SOs modernos usam
+          esse modelo.
+        </li>
+      </ul>
+
+      <h3>Multiusuário</h3>
+      <p>
+        Permite que vários usuários utilizem o mesmo sistema ao mesmo tempo,
+        cada um com permissões e ambiente próprios. Processos são isolados por
+        usuário. Muito comum em servidores (UNIX, Linux, BSD).
+      </p>
+
+      <h3>Sistemas Distribuídos</h3>
+      <p>
+        Gerenciam várias máquinas em rede como se fossem um único sistema.
+        Aumentam capacidade de processamento e escalabilidade. Usados em
+        supercomputadores, data centers e cloud.
+      </p>
+
+      <h3>Sistemas Embarcados</h3>
+      <p>
+        Projetados para dispositivos específicos com recursos limitados de
+        hardware — desde eletrodomésticos até equipamentos industriais.
+      </p>
+      <p>
+        Aqui, consumo de energia, previsibilidade e tempo de resposta costumam
+        ser mais importantes que interface sofisticada. Em muitos casos, o foco
+        é confiabilidade contínua por longos períodos sem intervenção humana.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s5">
+      <h2>5. Famílias de Sistemas Operacionais</h2>
+
+      <h3><mark class="red">Unix</mark> — "A Origem do Mundo Moderno"</h3>
+      <p>
+        Criado em 1969 por Ken Thompson e Dennis Ritchie nos Bell Labs. Baseado
+        em modularidade e no conceito de <em>"tudo é arquivo"</em>. Suporta
+        multiusuário e multitarefa preemptiva desde cedo. macOS e Linux são
+        Unix-like; o macOS é certificado como UNIX em várias versões.
+      </p>
+
+      <h3><mark class="red">BSD</mark> — Berkeley Software Distribution</h3>
+      <p>
+        Nasceu como distribuição do UNIX da Universidade de Berkeley. Diferente
+        do Linux, o <strong>BSD é um sistema inteiro</strong>: kernel + userland
+        + políticas do projeto. Muito respeitado pela estabilidade, segurança e
+        pela influente pilha TCP/IP.
+      </p>
+      <ul>
+        <li><strong>FreeBSD</strong>: foco em performance e servidores</li>
+        <li><strong>OpenBSD</strong>: foco em segurança e auditoria</li>
+        <li><strong>NetBSD</strong>: foco em portabilidade</li>
+      </ul>
+
+      <h3><mark class="gray">Linux</mark> — Kernel + Ecossistema de Distros</h3>
+      <p>
+        Criado em 1991 por Linus Torvalds. Linux
+        <strong>não é um sistema completo</strong> — é o kernel. O "sistema" é a
+        distribuição: kernel + userland GNU + init + libs + package manager.
+      </p>
+      <p>
+        Esse modelo modular explica por que existem tantas distribuições com
+        propostas diferentes. Todas compartilham o kernel, mas variam em ciclo
+        de atualização, ferramentas padrão, foco de segurança e experiência de
+        administração.
+      </p>
+      <p>
+        Exemplos: <strong>Arch</strong> (rolling release, KISS),
+        <strong>Debian</strong> (estabilidade máxima),
+        <strong>Ubuntu</strong> (usabilidade, Debian-based),
+        <strong>Fedora</strong> (upstream first),
+        <strong>Alpine</strong> (minimalista, containers). Domina servidores,
+        cloud e containers.
+      </p>
+
+      <h3>
+        <mark class="orange">macOS</mark> — Darwin: UNIX + BSD + Camada
+        Proprietária
+      </h3>
+      <p>
+        Não é baseado em Linux. Usa o kernel <mark class="red">XNU</mark> —
+        híbrido entre Mach (microkernel) e BSD. É certificado como UNIX. Herda
+        estrutura do UNIX e userland inspirado em BSD, com camadas proprietárias
+        da Apple no topo.
+      </p>
+
+      <h3><mark class="blue">Windows</mark> — Linha NT</h3>
+      <p>
+        Linhagem completamente diferente de UNIX/Linux. Versões modernas usam a
+        arquitetura <strong>Windows NT</strong> com modelo próprio de processos,
+        ACLs e integração com Active Directory. Não segue "tudo é arquivo" nem
+        POSIX originalmente. O <mark class="green">WSL</mark> adicionou
+        compatibilidade Unix-like.
+      </p>
+      <p>
+        Em ambientes corporativos, essa integração com políticas centralizadas e
+        domínio facilita gestão em larga escala, inventário de máquinas e
+        controle de acesso com rastreabilidade.
+      </p>
+
+      <h3><mark class="green">Android</mark> — Linux Modificado para Mobile</h3>
+      <p>
+        Usa o kernel Linux, mas substitui grande parte do userland pelo runtime
+        <strong>ART</strong>, framework mobile, sandbox por aplicativo e
+        comunicação via Binder. Cada app roda com UID próprio, isolado dos
+        outros.
+      </p>
+      <p>
+        Esse isolamento por UID é uma decisão de segurança importante em mobile:
+        reduz impacto de apps maliciosos e limita acesso cruzado entre dados de
+        aplicativos sem permissões explícitas.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s6">
+      <h2>6. Aplicativos, Utilitários e Serviços</h2>
+
+      <h3><mark class="orange">Aplicativos</mark></h3>
+      <p>
+        Programas voltados diretamente para o usuário: navegadores, editores de
+        texto, players de vídeo, jogos, softwares de comunicação. Utilizam
+        recursos do SO através de APIs e possuem interface amigável.
+      </p>
+      <p>
+        Mesmo quando parecem simples, aplicativos modernos dependem de múltiplas
+        camadas: renderização gráfica, gerenciamento de memória, pilha de rede e
+        subsistemas de segurança fornecidos pelo sistema operacional.
+      </p>
+
+      <h3><mark class="blue">Utilitários</mark></h3>
+      <p>
+        Programas voltados para
+        <strong>manutenção e gerenciamento do sistema</strong>, não para o
+        usuário diretamente. Exemplos: ferramentas de limpeza de disco, backup,
+        gerenciador de arquivos, compactadores, monitor de sistema.
+      </p>
+      <p>
+        Em contextos profissionais, utilitários são essenciais para
+        observabilidade: ajudam a medir uso de CPU, latência de disco, consumo
+        de RAM e saúde geral do sistema antes que problemas virem incidentes.
+      </p>
+
+      <h3><mark class="red">Serviços</mark></h3>
+      <p>
+        Executam em segundo plano sem interação direta com o usuário. Iniciados
+        automaticamente com o sistema. Responsáveis por conexões de rede,
+        impressão, atualizações e servidores.
+      </p>
+      <p>
+        Serviços bem configurados aumentam disponibilidade. Serviços mal
+        configurados viram gargalos silenciosos, porque consomem recursos sem
+        sinal evidente na interface.
+      </p>
+      <blockquote>
+        No Linux são chamados de <strong>daemons</strong>; no Windows são
+        conhecidos como <strong>services</strong>.
+      </blockquote>
+    </section>
+
+    <hr />
+
+    <section id="s7">
+      <h2>7. Tipos de Interfaces (CLI e GUI)</h2>
+
+      <h3><mark class="purple">CLI</mark> — Command Line Interface</h3>
+      <p>
+        Interface baseada em texto. O usuário digita comandos para executar
+        ações. Funciona via interpretadores como bash, zsh, PowerShell e cmd.
+        Exige mais conhecimento técnico, mas oferece maior controle, leveza e é
+        ideal para automação e servidores.
+      </p>
+      <p>
+        A CLI também favorece reprodutibilidade: comandos podem virar scripts,
+        versionados e executados de forma padronizada em múltiplos ambientes.
+      </p>
+
+      <h3><mark class="blue">GUI</mark> — Graphical User Interface</h3>
+      <p>
+        Interface gráfica com janelas, ícones, botões e menus. Permite interação
+        visual sem memorizar comandos. Exemplos: Windows Explorer, GNOME/KDE no
+        Linux, Finder no macOS. Mais acessível, mas consome mais recursos do
+        sistema.
+      </p>
+      <p>
+        Em equipes técnicas, GUI e CLI não competem: se complementam. GUI
+        acelera tarefas exploratórias e CLI acelera operações repetitivas e
+        automação.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s8">
+      <h2>8. Sistema de Arquivos</h2>
+      <p>
+        O <strong>Sistema de Arquivos</strong> é a estrutura que o SO usa para
+        organizar e armazenar dados no disco. Sem ele, o disco seria apenas
+        blocos sem organização. Ele define como arquivos são nomeados,
+        armazenados, organizados em diretórios, como funcionam permissões e como
+        ocorre leitura/escrita.
+      </p>
+
+      <h3>Exemplos</h3>
+      <ul>
+        <li><strong>NTFS</strong> — Windows</li>
+        <li><strong>ext4</strong> — Linux</li>
+        <li><strong>APFS</strong> — macOS</li>
+        <li><strong>FAT32 / exFAT</strong> — compatibilidade geral</li>
+      </ul>
+
+      <p>
+        Tecnicamente, trabalha com blocos de dados, inodes (no Linux), tabelas
+        de alocação e <strong>journaling</strong> — registro de alterações para
+        evitar corrupção. Garante integridade dos dados, controle de acesso e
+        recuperação após falhas.
+      </p>
+      <p>
+        Além do formato do sistema de arquivos, performance depende de
+        fragmentação, política de cache, tipo de armazenamento (SSD/NVMe/HDD) e
+        padrão de acesso (sequencial ou aleatório).
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s9">
+      <h2>9. Aplicativos, Utilitários e Serviços (aprofundado)</h2>
+
+      <h3>9.1 — <mark class="orange">Aplicativos</mark></h3>
+      <p>
+        Não acessam o hardware diretamente. Utilizam
+        <mark class="green">APIs e bibliotecas do sistema</mark> como
+        intermediárias. Exemplos: Chrome, Firefox, Word, LibreOffice, Photoshop,
+        GIMP, Discord, Telegram. Geralmente possuem GUI e são instalados pelo
+        usuário.
+      </p>
+      <p>
+        Isso garante portabilidade e segurança: em vez de manipular hardware
+        bruto, o aplicativo segue contratos definidos pelo SO, que valida e
+        controla cada chamada sensível.
+      </p>
+
+      <h3>9.2 — <mark class="blue">Utilitários</mark></h3>
+      <p>Voltados para administração e otimização do sistema. Exemplos:</p>
+      <ul>
+        <li>
+          Gerenciadores de disco: Disk Management (Windows), GParted (Linux)
+        </li>
+        <li>Monitor de processos: Task Manager, top, htop</li>
+        <li>Compactadores: WinRAR, 7-Zip, tar, gzip</li>
+        <li>Ferramentas de backup e diagnóstico</li>
+      </ul>
+      <p>
+        Para administração de ambientes reais, utilitários são a primeira linha
+        de análise: coletam evidências, ajudam no troubleshooting e sustentam
+        decisões de capacity planning.
+      </p>
+
+      <h3>9.3 — <mark class="red">Serviços (Daemons)</mark></h3>
+      <p>
+        Executam em segundo plano, sem interface gráfica. Exemplos: serviços de
+        rede e impressão, atualizações automáticas, servidores web (Apache,
+        Nginx) e bancos de dados (MySQL, PostgreSQL).
+      </p>
+      <p>
+        Em Linux, ferramentas como `systemd` facilitam controle de ciclo de vida
+        (start, stop, restart, status) e padronizam logs, melhorando operação e
+        resposta a incidentes.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="s10">
+      <h2>10. Virtualização</h2>
+      <p>
+        Tecnologia que permite criar
+        <strong>versões virtuais de recursos físicos</strong>: sistemas
+        operacionais, servidores, armazenamento ou redes. Um único computador
+        físico pode executar vários SOs ao mesmo tempo, cada um de forma
+        independente e isolada.
+      </p>
+      <p>
+        Isso é possível pelo <strong>hypervisor</strong>, software que cria e
+        gerencia <strong>máquinas virtuais (VMs)</strong>. Cada VM simula um
+        computador completo. Muito usado em cloud, testes de software e
+        desenvolvimento.
+      </p>
+      <p>
+        Existem hypervisors tipo 1 (bare-metal) e tipo 2 (hosted). O tipo 1
+        tende a oferecer melhor desempenho e isolamento; o tipo 2 é comum em
+        laboratórios e uso pessoal.
+      </p>
+
+      <h3>Containers</h3>
+      <p>
+        Diferente das VMs, containers não virtualizam o hardware inteiro.
+        Compartilham o kernel do sistema, mas isolam processos, rede e sistema
+        de arquivos. São mais leves e eficientes, muito usados em cloud e
+        desenvolvimento (Docker, por exemplo).
+      </p>
+      <p>
+        Esse modelo reduz overhead e acelera deploy, mas exige atenção com
+        segurança de imagens, controle de recursos e observabilidade em
+        produção.
+      </p>
+    </section>
+
+    <hr />
+
+    <section id="conclusao">
+      <h2>Conclusão</h2>
+      <p>
+        Os sistemas operacionais são parte essencial da computação moderna. Este
+        estudo cobriu desde o papel do kernel no controle do hardware até
+        conceitos como virtualização e containers, passando por processos,
+        threads, tipos de SOs e suas famílias.
+      </p>
+      <p>
+        Mais do que teoria, esses conceitos explicam o que acontece quando
+        abrimos um programa, acessamos um arquivo ou nos conectamos à internet.
+        Compreender sistemas operacionais é entender
+        <strong
+          >a base que sustenta toda a tecnologia que usamos todos os
+          dias</strong
+        >.
+      </p>
+      <p>
+        Em um contexto profissional, dominar esses fundamentos melhora muito a
+        tomada de decisão: desde escolha de infraestrutura até diagnóstico de
+        falhas, desempenho e segurança em aplicações reais.
+      </p>
+      <p>
+        Lembrando que tanto a página web quanto o material em si, vai estar no
+        meu github disponivel em meu
+        <a href="https://github.com/LuanBertozzi7/sistemas-operacionais"
+          >repositorio - sistemas operacionais</a
+        >
+      </p>
+    </section>
+
+    <footer>
+      <div class="footer-info">
+        <span class="footer-signature">Luan Bertozzi</span>
+        <a href="mailto:luanbertozzi@pm.me">luanbertozzi@pm.me</a>
+        <span>Última atualização: março/2026</span>
+      </div>
+      <a
+        href="https://github.com/LuanBertozzi7"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="./resources/github.svg" alt="GitHub" width="24" height="24" />
+      </a>
+    </footer>
+  </body>
+</html>
