@@ -1,0 +1,51 @@
+mark {
+  background: none;
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+  font-weight: 500;
+}
+mark.blue {
+  background: #ddeaff;
+  color: #1a4fbf;
+}
+mark.green {
+  background: #d5f5ec;
+  color: #1a7a58;
+}
+mark.orange {
+  background: #ffecd5;
+  color: #b54800;
+}
+mark.red {
+  background: #ffe5e5;
+  color: #b52020;
+}
+mark.purple {
+  background: #ede5ff;
+  color: #5e2cb5;
+}
+mark.gray {
+  background: #f0f0f0;
+  color: #444;
+}
+
+span.green {
+  color: #1a7a58;
+  font-weight: bold;
+}
+span.blue {
+  color: #1a4fbf;
+  font-weight: bold;
+}
+span.orange {
+  color: #b54800;
+  font-weight: bold;
+}
+span.red {
+  color: #b52020;
+  font-weight: bold;
+}
+
+strong {
+  color: #111;
+}

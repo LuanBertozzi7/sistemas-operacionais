@@ -1,0 +1,111 @@
+body.dark-theme {
+  color: #e6e8ef;
+  background: #111319;
+}
+
+body.dark-theme header,
+body.dark-theme hr,
+body.dark-theme footer {
+  border-color: #2b303d;
+}
+
+body.dark-theme .meta,
+body.dark-theme .subtitle {
+  color: #a9b0c2;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme strong {
+  color: #f3f5fb;
+}
+
+body.dark-theme p,
+body.dark-theme li,
+body.dark-theme ul,
+body.dark-theme ol {
+  color: #d4d9e6;
+}
+
+body.dark-theme .toc {
+  background: #1a1f2b;
+  border-left-color: #7ea0ff;
+}
+
+body.dark-theme .toc-title {
+  color: #a9b0c2;
+}
+
+body.dark-theme .toc a,
+body.dark-theme #conclusao a,
+body.dark-theme .footer-info a,
+body.dark-theme .topic-refs a {
+  color: #9ab4ff;
+}
+
+body.dark-theme blockquote {
+  border-left-color: #7ea0ff;
+  background: #1a2132;
+  color: #c6cee0;
+}
+
+body.dark-theme #progress {
+  background: #87a6ff;
+}
+
+body.dark-theme mark.blue {
+  background: #234180;
+  color: #dce8ff;
+}
+
+body.dark-theme mark.green {
+  background: #1f5f4a;
+  color: #d5f9eb;
+}
+
+body.dark-theme mark.orange {
+  background: #7a451a;
+  color: #ffe6d2;
+}
+
+body.dark-theme mark.red {
+  background: #7b2a2a;
+  color: #ffe0e0;
+}
+
+body.dark-theme mark.purple {
+  background: #4a3275;
+  color: #efe7ff;
+}
+
+body.dark-theme mark.gray {
+  background: #343a47;
+  color: #e6eaf2;
+}
+
+body.dark-theme .footer-signature,
+body.dark-theme footer {
+  color: #a9b0c2;
+}
+
+body.dark-theme #theme-toggle {
+  border-color: #3a4356;
+  background: #252c3a;
+  color: #dbe4ff;
+}
+
+body.dark-theme #theme-toggle:hover {
+  background: #313a4c;
+  border-color: #506080;
+}
+
+body.dark-theme .footer-actions a {
+  border-color: #3a4356;
+  background: #252c3a;
+}
+
+body.dark-theme .footer-actions a:hover {
+  background: #313a4c;
+  border-color: #506080;
+}

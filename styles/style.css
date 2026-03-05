@@ -1,4 +1,6 @@
 @import url(font.css);
+@import url(utils.css);
+@import url(dark.css);
 
 * {
   box-sizing: border-box;
@@ -153,59 +155,6 @@ hr {
   margin: 3rem 0;
 }
 
-strong {
-  color: #111;
-}
-
-mark {
-  background: none;
-  padding: 0.05em 0.25em;
-  border-radius: 3px;
-  font-weight: 500;
-}
-
-mark.blue {
-  background: #ddeaff;
-  color: #1a4fbf;
-}
-mark.green {
-  background: #d5f5ec;
-  color: #1a7a58;
-}
-mark.orange {
-  background: #ffecd5;
-  color: #b54800;
-}
-mark.red {
-  background: #ffe5e5;
-  color: #b52020;
-}
-mark.purple {
-  background: #ede5ff;
-  color: #5e2cb5;
-}
-mark.gray {
-  background: #f0f0f0;
-  color: #444;
-}
-
-span.green {
-  color: #1a7a58;
-  font-weight: bold;
-}
-span.blue {
-  color: #1a4fbf;
-  font-weight: bold;
-}
-span.orange {
-  color: #b54800;
-  font-weight: bold;
-}
-span.red {
-  color: #b52020;
-  font-weight: bold;
-}
-
 section.active h2 {
   color: #4f7fff;
 }
@@ -213,6 +162,25 @@ section.active h2 {
 #conclusao a {
   color: #4f7fff;
   text-decoration: none;
+}
+
+.topic-refs {
+  margin-top: 0.25rem;
+  margin-bottom: 1.2rem;
+}
+
+.topic-refs li {
+  margin-bottom: 0.2rem;
+}
+
+.topic-refs a {
+  color: #305fcb;
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.topic-refs a:hover {
+  text-decoration: underline;
 }
 
 footer {
@@ -296,117 +264,6 @@ footer {
 .footer-actions a:hover {
   background: #eaf0ff;
   border-color: #b9c7ea;
-}
-
-body.dark-theme {
-  color: #e6e8ef;
-  background: #111319;
-}
-
-body.dark-theme header,
-body.dark-theme hr,
-body.dark-theme footer {
-  border-color: #2b303d;
-}
-
-body.dark-theme .meta,
-body.dark-theme .subtitle {
-  color: #a9b0c2;
-}
-
-body.dark-theme h1,
-body.dark-theme h2,
-body.dark-theme h3,
-body.dark-theme strong {
-  color: #f3f5fb;
-}
-
-body.dark-theme p,
-body.dark-theme li,
-body.dark-theme ul,
-body.dark-theme ol {
-  color: #d4d9e6;
-}
-
-body.dark-theme .toc {
-  background: #1a1f2b;
-  border-left-color: #7ea0ff;
-}
-
-body.dark-theme .toc-title {
-  color: #a9b0c2;
-}
-
-body.dark-theme .toc a,
-body.dark-theme #conclusao a,
-body.dark-theme .footer-info a {
-  color: #9ab4ff;
-}
-
-body.dark-theme blockquote {
-  border-left-color: #7ea0ff;
-  background: #1a2132;
-  color: #c6cee0;
-}
-
-body.dark-theme #progress {
-  background: #87a6ff;
-}
-
-body.dark-theme mark.blue {
-  background: #234180;
-  color: #dce8ff;
-}
-
-body.dark-theme mark.green {
-  background: #1f5f4a;
-  color: #d5f9eb;
-}
-
-body.dark-theme mark.orange {
-  background: #7a451a;
-  color: #ffe6d2;
-}
-
-body.dark-theme mark.red {
-  background: #7b2a2a;
-  color: #ffe0e0;
-}
-
-body.dark-theme mark.purple {
-  background: #4a3275;
-  color: #efe7ff;
-}
-
-body.dark-theme mark.gray {
-  background: #343a47;
-  color: #e6eaf2;
-}
-
-body.dark-theme .footer-signature,
-body.dark-theme footer {
-  color: #a9b0c2;
-}
-
-body.dark-theme #theme-toggle {
-  border-color: #3a4356;
-  background: #252c3a;
-  color: #dbe4ff;
-}
-
-body.dark-theme #theme-toggle:hover {
-  background: #313a4c;
-  border-color: #506080;
-}
-
-body.dark-theme .footer-actions a {
-  border-color: #3a4356;
-  background: #252c3a;
-}
-
-body.dark-theme .footer-actions a:hover {
-  background: #313a4c;
-  border-color: #506080;
 }
 
 @media (max-width: 640px) {
