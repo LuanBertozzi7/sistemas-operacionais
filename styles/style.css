@@ -2,6 +2,14 @@
 @import url(utils.css);
 @import url(dark.css);
 
+:root {
+  --highlight-bg: #fffbe5;
+  --highlight-text: #5d4c0c;
+  --code-bg: #f8f9fa;
+  --code-border: #e9ecef;
+  --code-text: #212529;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,7 +21,7 @@ html {
 }
 
 body {
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: "Ubuntu", sans-serif;
   font-size: 17px;
   line-height: 1.75;
   color: #1a1a1a;
@@ -147,6 +155,25 @@ blockquote {
   font-style: italic;
   font-size: 0.95rem;
   background: #f5f8ff;
+}
+
+code {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  color: var(--code-text);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.highlight {
+  background-color: var(--highlight-bg);
+  color: var(--highlight-text);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 hr {

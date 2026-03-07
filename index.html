@@ -4,13 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistemas Operacionais — Credip + Dotum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Lora:ital,wght@0,400;0,500;1,400&family=Ubuntu:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles/style.css" />
     <script src="./script/utilities.js" defer></script>
     <script src="./script/main.js" defer></script>
+
+    <style>
+      .hl-blue {
+        color: #4da6ff;
+        font-weight: 500;
+      }
+      .hl-green {
+        color: #4caf82;
+        font-weight: 500;
+      }
+      .hl-orange {
+        color: #e08a3c;
+        font-weight: 500;
+      }
+      .hl-purple {
+        color: #b07fd4;
+        font-weight: 500;
+      }
+      .hl-red {
+        color: #e05c5c;
+        font-weight: 500;
+      }
+      .hl-cyan {
+        color: #4dd0e1;
+        font-weight: 500;
+      }
+    </style>
   </head>
   <body>
     <div id="progress"></div>
@@ -24,8 +53,8 @@
       </div>
       <h1>Sistemas Operacionais</h1>
       <p class="subtitle">
-        Uma visão sobre os fundamentos, arquitetura e famílias de sistemas
-        operacionais...
+        Uma visão aprofundada sobre os fundamentos, arquitetura, famílias e
+        mecanismos internos dos sistemas operacionais modernos.
       </p>
     </header>
 
@@ -40,74 +69,94 @@
         <li><a href="#s6">Aplicativos, Utilitários e Serviços</a></li>
         <li><a href="#s7">Tipos de Interfaces (CLI e GUI)</a></li>
         <li><a href="#s8">Sistema de Arquivos</a></li>
-        <li>
-          <a href="#s9">Aplicativos, Utilitários e Serviços (aprofundado)</a>
-        </li>
-        <li><a href="#s10">Virtualização</a></li>
+        <li><a href="#s9">Virtualização e Containers</a></li>
       </ol>
     </nav>
 
+    <!-- ═══════════════════════════════════════════════════════ S1 -->
     <section id="s1">
       <h2>1. Fundamentos de Sistemas Operacionais</h2>
       <p>
-        Um <mark class="blue">Sistema Operacional</mark> é o software que
-        gerencia todos os recursos de um computador, incluindo hardware e
-        programas. Ele é responsável por controlar o fluxo de informações do
-        processador e permite que usuários interajam com seus dispositivos sem
-        precisar conhecer o hardware a fundo.
+        Um <span class="highlight">Sistema Operacional (SO)</span> é o software
+        fundamental que atua como intermediário entre o hardware de um
+        computador e os programas executados pelo usuário. Sua função primária é
+        gerenciar de forma eficiente e segura todos os recursos da máquina:
+        <code>CPU</code>, memória <code>RAM</code>, dispositivos de
+        armazenamento (<code>SSD/HDD</code>), periféricos e conexões de rede.
       </p>
       <p>
-        Em nível técnico, o SO fica entre o
-        <mark class="orange">hardware</mark> e os softwares utilitários, com
-        acesso direto à CPU, RAM, disco, GPU e rede.
+        Sem um SO, cada desenvolvedor precisaria escrever código específico para
+        cada modelo de hardware existente. O SO cria uma
+        <strong>camada de abstração</strong> que libera os programas dessa
+        responsabilidade. Na prática, ele também resolve conflitos de acesso: se
+        dois programas tentam escrever no mesmo arquivo ao mesmo tempo, é o SO
+        que coordena essa operação para evitar corrupção de dados e garantir
+        consistência.
       </p>
       <p>
-        Na prática, ele também resolve conflitos de acesso: dois programas podem
-        querer gravar no disco ao mesmo tempo, por exemplo. Sem coordenação do
-        SO, haveria corrupção de dados, travamentos frequentes e desperdício de
-        recursos.
+        Pense no SO como o <span class="hl-blue">gerente de um prédio</span>:
+        ele não faz o trabalho dos inquilinos (programas), mas garante que todos
+        tenham acesso justo aos recursos compartilhados — energia, elevadores,
+        salas de reunião — sem que um interfira nos outros.
       </p>
 
       <h3>As Camadas — do Hardware ao Aplicativo</h3>
       <ul>
         <li>
-          <mark class="orange">Hardware</mark>: CPU, RAM, SSD, placa de rede,
-          GPU.
+          <strong>Hardware</strong>: A base física —
+          <span class="hl-cyan">CPU, RAM, SSD, GPU</span> e periféricos.
         </li>
         <li>
-          <mark class="red">Kernel (Núcleo)</mark>: parte central, controla
-          diretamente o hardware.
+          <strong>Kernel (Núcleo)</strong>: O cérebro do SO. Controla o
+          hardware, gerencia processos e memória com nível máximo de privilégio.
         </li>
         <li>
-          <mark class="gray">Drivers</mark>: "tradutores" entre o Kernel e os
-          dispositivos.
+          <strong>Drivers</strong>: "Tradutores" que permitem ao Kernel se
+          comunicar com cada peça de hardware específica. Sem um driver, o SO
+          não sabe como falar com uma placa de vídeo ou uma impressora.
         </li>
         <li>
-          <mark class="gray">Serviços do Sistema (daemons)</mark>: rede, logs,
-          áudio, impressão, atualizações.
+          <strong>Shell e Serviços</strong>: A camada que expõe as
+          funcionalidades do Kernel ao usuário e a outros programas, incluindo a
+          interface de linha de comando (CLI) e serviços de sistema (<span
+            class="hl-purple"
+            >daemons</span
+          >).
         </li>
         <li>
-          <mark class="green">Bibliotecas e APIs</mark>: funções prontas que os
-          aplicativos usam.
+          <strong>Aplicativos</strong>: Softwares que o usuário executa —
+          navegador, editor de texto, jogos — vivem nessa camada mais externa.
         </li>
-        <li><mark class="purple">Interface do Usuário</mark>: CLI ou GUI.</li>
       </ul>
+
+      <h3>Modos de Operação: Kernel Space vs. User Space</h3>
+      <p>
+        Os processadores modernos operam em pelo menos dois níveis de
+        privilégio. O <span class="hl-red">kernel space</span> é o nível mais
+        privilegiado: o código que roda aqui tem acesso irrestrito ao hardware.
+        Já o <span class="hl-green">user space</span> é onde os programas comuns
+        rodam, com acesso restrito e controlado pelo kernel.
+      </p>
+      <p>
+        Quando um programa precisa fazer algo privilegiado — como gravar um
+        arquivo no disco — ele faz uma <strong>system call</strong>, que é uma
+        solicitação formal ao kernel para realizar a operação em seu nome. Essa
+        separação é a principal barreira de segurança do sistema: um bug em um
+        aplicativo comum não pode destruir dados do sistema ou derrubar o SO.
+      </p>
 
       <h3>A Real Vantagem de um Sistema Operacional</h3>
       <p>
-        O SO cria uma <strong>camada de abstração</strong>: programas não
-        precisam saber como cada peça física funciona. Um SO bem feito organiza
-        o caos do hardware e transforma em algo utilizável.
-      </p>
-      <p>
-        Em outras palavras, é o componente que converte capacidade bruta em
-        experiência de uso. Quando abrimos um editor de texto e tudo
-        "simplesmente funciona", existe uma longa cadeia de decisões do sistema
-        acontecendo em milissegundos.
+        O SO transforma
+        <span class="hl-orange">capacidade bruta em experiência de uso</span>.
+        Quando abrimos um editor de texto e tudo "simplesmente funciona", existe
+        uma longa cadeia de decisões acontecendo em milissegundos: escalonamento
+        de CPU, alocação de memória, leitura de disco, renderização gráfica —
+        tudo coordenado de forma invisível.
       </p>
       <blockquote>
-        "Operating systems perform two basic functions: extending the machine
-        and managing resources." — Tanenbaum
+        "Sistemas operacionais realizam duas funções básicas: estender a máquina
+        e gerenciar recursos." — Tanenbaum
       </blockquote>
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
@@ -126,79 +175,149 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S2 -->
     <section id="s2">
       <h2>2. Kernel, Processos e Threads</h2>
 
       <h3>O que é o Kernel</h3>
       <p>
-        O <mark class="red">Kernel</mark> é o núcleo do sistema operacional — a
-        parte com nível máximo de privilégio no hardware. Age como intermediário
-        entre o hardware e os programas, garantindo uso organizado, seguro e
-        eficiente dos recursos.
+        O <span class="highlight">Kernel</span> é o coração do sistema
+        operacional, executando no nível mais privilegiado de acesso ao hardware
+        (<span class="hl-red">kernel space</span>). Ele é o primeiro programa
+        carregado na inicialização e permanece residente na memória o tempo todo
+        que o sistema estiver ligado.
       </p>
-      <p>Suas principais responsabilidades:</p>
+
+      <h4>Principais Responsabilidades do Kernel:</h4>
       <ul>
         <li>
-          <strong>Gerenciamento da CPU</strong>: decide qual processo executa a
-          cada momento, via algoritmos de escalonamento.
+          <strong>Escalonamento de Processos</strong>: Decide qual processo deve
+          usar a CPU a cada momento, usando algoritmos como
+          <span class="hl-blue">Round-Robin</span>,
+          <span class="hl-blue">CFS (Completely Fair Scheduler)</span> do Linux
+          e <span class="hl-blue">MLFQ (Multi-Level Feedback Queue)</span> para
+          garantir justiça e eficiência entre processos concorrentes.
         </li>
         <li>
-          <strong>Gerenciamento de memória</strong>: aloca RAM para processos,
-          gerencia paginação, cache e swap.
+          <strong>Gerenciamento de Memória</strong>: Aloca e libera blocos de
+          memória RAM para os processos, além de gerenciar a
+          <span class="hl-purple">memória virtual</span> — que permite que o
+          sistema use o disco como extensão da RAM através de paginação e swap.
         </li>
         <li>
-          <strong>Gerenciamento de dispositivos (I/O)</strong>: controla discos,
-          rede, teclado, mouse, USB e GPU — via drivers.
+          <strong>Gerenciamento de Dispositivos (I/O)</strong>: Comunica-se com
+          os dispositivos de hardware — disco, rede, teclado, GPU — através de
+          drivers. Abstrai as diferenças físicas entre dispositivos para que os
+          programas os vejam de forma uniforme.
         </li>
         <li>
-          <strong>Segurança e isolamento</strong>: controla permissões e mantém
-          processos isolados.
+          <strong>Chamadas de Sistema (System Calls)</strong>: Fornece uma API
+          segura — <code>open()</code>, <code>read()</code>,
+          <code>write()</code>, <code>fork()</code>, <code>exec()</code> — para
+          que programas no user space solicitem serviços privilegiados ao
+          kernel.
         </li>
         <li>
-          <mark class="green">System Calls</mark>: interfaces que programas usam
-          para solicitar operações ao kernel.
+          <strong>Segurança e Isolamento</strong>: Controla permissões de acesso
+          a arquivos, dispositivos e memória. Garante que processos não invadam
+          o espaço de memória uns dos outros.
         </li>
       </ul>
+
+      <h3>Tipos de Kernel</h3>
       <p>
-        Do ponto de vista de arquitetura, o kernel é um "árbitro". Ele define
-        prioridade, ordem e limites para que múltiplas tarefas convivam sem
-        comprometer desempenho e segurança.
+        A forma como o kernel é estruturado internamente define sua arquitetura:
       </p>
+      <ul>
+        <li>
+          <strong><span class="hl-green">Monolítico</span></strong
+          >: Todo o código do SO (drivers, sistemas de arquivos, rede) roda no
+          kernel space. É mais rápido, mas um bug em qualquer componente pode
+          derrubar o sistema inteiro. Exemplo: <strong>Linux</strong>.
+        </li>
+        <li>
+          <strong><span class="hl-blue">Microkernel</span></strong
+          >: Apenas o mínimo essencial roda no kernel space. Drivers e serviços
+          rodam no user space, sendo mais seguros e isolados. Exemplo:
+          <strong>Minix, QNX, Mach</strong>.
+        </li>
+        <li>
+          <strong><span class="hl-orange">Híbrido</span></strong
+          >: Combinação dos dois modelos, buscando equilíbrio entre performance
+          e modularidade. Exemplo: <strong>Windows NT, XNU (macOS)</strong>.
+        </li>
+      </ul>
 
       <h3>Processos</h3>
       <p>
-        Um <mark class="purple">processo</mark> é uma instância de um programa
-        em execução. Cada processo possui espaço de memória isolado, recursos do
-        sistema, estado de execução e pilha próprios. Esse isolamento impede que
-        um programa interfira na memória de outro.
+        Um <span class="highlight">processo</span> é um programa em execução —
+        não apenas o código, mas também seu estado atual: os valores das
+        variáveis, os arquivos abertos, a pilha de chamadas e os recursos
+        alocados. O SO enxerga cada processo como uma entidade completamente
+        independente.
       </p>
       <p>
-        Em sistemas multitarefa, o SO alterna rapidamente entre processos via
-        <mark class="blue">time slicing</mark>, criando a impressão de execução
-        simultânea.
+        O SO armazena todas as informações sobre um processo em uma estrutura
+        chamada <span class="hl-purple">PCB (Process Control Block)</span>, que
+        inclui: ID do processo (PID), estado atual, prioridade de escalonamento,
+        ponteiros de memória, lista de arquivos abertos e informações de
+        segurança.
       </p>
       <p>
-        Cada processo possui estados clássicos como novo, pronto, executando,
-        bloqueado e finalizado. Entender essa transição ajuda a diagnosticar
-        lentidão, gargalos de I/O e consumo excessivo de memória.
+        A <strong>troca de contexto</strong> (<em>context switch</em>) é o
+        mecanismo pelo qual o SO salva o PCB do processo atual e carrega o de
+        outro. É uma operação cara em termos de desempenho — o processador
+        precisa salvar e restaurar dezenas de registradores. Por isso, minimizar
+        trocas de contexto desnecessárias é uma preocupação real em sistemas de
+        alta performance.
       </p>
+
+      <h4>Ciclo de Vida de um Processo:</h4>
+      <ul>
+        <li>
+          <span class="hl-blue">Novo</span>: O processo está sendo criado.
+        </li>
+        <li>
+          <span class="hl-green">Pronto</span>: Aguarda a CPU ficar disponível
+          para executar.
+        </li>
+        <li>
+          <span class="hl-orange">Executando</span>: Está usando a CPU neste
+          momento.
+        </li>
+        <li>
+          <span class="hl-purple">Bloqueado</span>: Aguarda um evento externo
+          (I/O, sinal, timer).
+        </li>
+        <li>
+          <span class="hl-red">Finalizado</span>: Terminou sua execução e
+          aguarda o SO limpar seus recursos.
+        </li>
+      </ul>
 
       <h3>Threads</h3>
       <p>
-        Uma <mark class="orange">thread</mark> é uma unidade menor de execução
-        dentro de um processo. Enquanto processos têm memória própria, threads
-        compartilham os recursos do processo ao qual pertencem — memória,
-        variáveis globais, arquivos abertos.
+        Uma <span class="highlight">thread</span> é a menor unidade de execução
+        que o SO pode gerenciar. Um processo pode conter uma ou mais threads que
+        compartilham o mesmo espaço de memória e recursos — o que as torna muito
+        mais leves e rápidas para criar e alternar do que processos completos.
       </p>
       <p>
-        Exemplo: um navegador pode ter uma thread carregando a interface, outra
-        baixando arquivos e outra executando scripts — tudo no mesmo processo.
+        Exemplo prático: um navegador moderno como o Chrome usa múltiplas
+        threads dentro de cada aba — uma para renderizar HTML/CSS, outra para
+        executar JavaScript, outra para decodificar vídeo e outra para lidar com
+        rede. Tudo no mesmo processo, de forma concorrente.
       </p>
       <p>
-        O ganho é responsividade, mas existe um custo: threads compartilham
-        memória, então problemas de concorrência (race condition, deadlock e
-        starvation) precisam ser tratados com sincronização adequada.
+        A desvantagem é a complexidade: como a memória é compartilhada, o
+        programador precisa usar mecanismos de sincronização —
+        <span class="hl-red">mutex</span>,
+        <span class="hl-red">semáforos</span>,
+        <span class="hl-red">variáveis de condição</span> — para evitar bugs de
+        concorrência como <em>race conditions</em>, <em>deadlocks</em> e
+        <em>starvation</em>.
       </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -222,31 +341,73 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S3 -->
     <section id="s3">
       <h2>3. Multitarefa e Multiprogramação</h2>
 
       <h3>Multitarefa</h3>
       <p>
-        É a capacidade do SO de executar várias tarefas ao mesmo tempo. Em CPUs
-        com um único núcleo, o sistema divide o tempo em pequenas partes e
-        alterna entre programas via <mark class="blue">time slicing</mark> — tão
-        rápido que parece simultâneo. Em CPUs com vários núcleos, as tarefas
-        realmente executam em paralelo.
+        É a capacidade do SO de executar múltiplas tarefas (processos)
+        concorrentemente. O SO alterna a execução entre os processos na CPU em
+        intervalos de tempo muito curtos (<span class="hl-blue"
+          >time-slicing</span
+        >), criando a ilusão de que estão rodando simultaneamente — mesmo em
+        máquinas com um único núcleo de CPU.
       </p>
+      <ul>
+        <li>
+          <strong><span class="hl-green">Multitarefa Preemptiva</span>:</strong>
+          O SO tem controle total e pode interromper ("preemptar") um processo a
+          qualquer momento para dar a vez a outro, com base em prioridade e
+          tempo de execução. É o modelo usado em todos os sistemas modernos
+          (Windows, Linux, macOS). Garante estabilidade: um processo travado não
+          paralisa o sistema inteiro.
+        </li>
+        <li>
+          <strong><span class="hl-red">Multitarefa Cooperativa</span>:</strong>
+          Cada processo é responsável por voluntariamente ceder o controle da
+          CPU. Se um programa entrar em loop infinito, ele trava todo o sistema.
+          Era comum em sistemas antigos como o <strong>Windows 3.1</strong> e o
+          <strong>Mac OS clássico</strong>.
+        </li>
+      </ul>
 
       <h3>Multiprogramação</h3>
       <p>
-        Técnica cujo objetivo é
-        <strong>aproveitar melhor o tempo da CPU</strong>. Vários programas
-        ficam carregados na memória ao mesmo tempo. Quando um programa espera
-        por uma operação de disco ou rede, o SO usa esse tempo para executar
-        outro. O resultado é um sistema mais eficiente.
+        É o conceito que viabiliza a multitarefa eficiente. A ideia é manter
+        múltiplos programas carregados na memória principal (RAM) ao mesmo
+        tempo, prontos para executar. O objetivo é
+        <span class="hl-orange">maximizar a utilização da CPU</span>, evitando
+        que ela fique ociosa.
       </p>
       <p>
-        Em termos de produtividade do sistema, isso reduz tempo ocioso da CPU e
-        melhora throughput. Em servidores, esse comportamento é crucial para
-        atender múltiplas requisições simultâneas com estabilidade.
+        Quando um processo precisa esperar por uma operação lenta — como ler um
+        arquivo do disco (I/O) ou aguardar uma resposta de rede — a CPU ficaria
+        parada. Com multiprogramação, o SO aproveita esse tempo para executar
+        outro processo que está pronto na memória. O resultado é um aumento
+        dramático no <span class="hl-cyan">throughput</span> (vazão) do sistema.
       </p>
+
+      <h3>Paralelismo Real vs. Concorrência</h3>
+      <p>É importante distinguir dois conceitos frequentemente confundidos:</p>
+      <ul>
+        <li>
+          <span class="hl-purple">Concorrência</span>: múltiplas tarefas
+          <em>progridem</em> ao mesmo tempo, alternando o uso da CPU via
+          time-slicing. Pode ocorrer em uma única CPU.
+        </li>
+        <li>
+          <span class="hl-green">Paralelismo</span>: múltiplas tarefas
+          <em>executam literalmente ao mesmo tempo</em>, cada uma em um núcleo
+          físico diferente. Requer hardware com múltiplos núcleos ou múltiplas
+          CPUs.
+        </li>
+      </ul>
+      <p>
+        Um sistema moderno como um servidor com 64 núcleos pratica ambos:
+        paralelismo entre os núcleos e concorrência dentro de cada núcleo.
+      </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -264,54 +425,88 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S4 -->
     <section id="s4">
       <h2>4. Tipos de Sistemas Operacionais</h2>
 
       <h3>Monotarefa</h3>
       <p>
-        Executa apenas um programa por vez. Todos os recursos ficam dedicados
-        àquela tarefa até sua conclusão. Modelo clássico do MS-DOS nas décadas
-        de 1980/90.
+        Executa apenas uma tarefa por vez. O usuário precisa fechar um programa
+        para poder abrir outro. O exemplo clássico é o
+        <strong>MS-DOS</strong>. Ainda existe em microcontroladores e sistemas
+        muito simples onde a previsibilidade total é mais importante que a
+        capacidade multitarefa.
       </p>
 
       <h3>Multitarefa</h3>
-      <p>Executa vários programas simultaneamente. Existem dois modelos:</p>
-      <ul>
-        <li>
-          <strong>Cooperativa</strong>: cada programa cede voluntariamente o
-          controle da CPU. Se não liberar, pode travar o sistema.
-        </li>
-        <li>
-          <strong>Preemptiva</strong>: o kernel controla totalmente a CPU e pode
-          interromper processos. Muito mais estável. Todos os SOs modernos usam
-          esse modelo.
-        </li>
-      </ul>
+      <p>
+        Permite que vários programas executem concorrentemente. É o padrão em
+        todos os sistemas operacionais de desktop e servidores atuais. A
+        implementação moderna é sempre
+        <span class="hl-green">preemptiva</span>, garantindo que nenhum processo
+        monopolize a CPU indefinidamente.
+      </p>
 
       <h3>Multiusuário</h3>
       <p>
-        Permite que vários usuários utilizem o mesmo sistema ao mesmo tempo,
-        cada um com permissões e ambiente próprios. Processos são isolados por
-        usuário. Muito comum em servidores (UNIX, Linux, BSD).
+        Permite que múltiplos usuários acessem o sistema simultaneamente, cada
+        um com seu próprio ambiente, arquivos, processos e permissões. O SO
+        garante o <span class="hl-blue">isolamento e a segurança</span> entre os
+        dados de cada usuário. É uma característica fundamental dos sistemas da
+        família <strong>Unix/Linux</strong> e é a base de servidores de qualquer
+        escala.
+      </p>
+      <p>
+        Em um servidor Linux com 100 usuários conectados via SSH ao mesmo tempo,
+        cada sessão roda de forma completamente independente — os processos,
+        arquivos temporários e variáveis de ambiente de um usuário são
+        invisíveis e inacessíveis aos outros (salvo permissões explícitas).
+      </p>
+
+      <h3>Sistemas de Tempo Real (RTOS)</h3>
+      <p>
+        Um <span class="hl-red">RTOS (Real-Time Operating System)</span> garante
+        que determinadas operações sejam concluídas dentro de um prazo máximo
+        rigoroso (<em>deadline</em>). Existem dois níveis de garantia:
+      </p>
+      <ul>
+        <li>
+          <strong>Hard Real-Time</strong>: Perder o deadline é inaceitável e
+          pode causar falha catastrófica. Exemplos: sistemas de freios ABS,
+          controle de voo, marcapassos.
+        </li>
+        <li>
+          <strong>Soft Real-Time</strong>: Perder o deadline degrada a
+          qualidade, mas não é fatal. Exemplos: streaming de vídeo,
+          videoconferência.
+        </li>
+      </ul>
+      <p>
+        RTOS populares incluem <span class="hl-orange">FreeRTOS</span>,
+        <span class="hl-orange">VxWorks</span> e
+        <span class="hl-orange">QNX</span>.
       </p>
 
       <h3>Sistemas Distribuídos</h3>
       <p>
-        Gerenciam várias máquinas em rede como se fossem um único sistema.
-        Aumentam capacidade de processamento e escalabilidade. Usados em
-        supercomputadores, data centers e cloud.
+        Gerenciam um conjunto de computadores independentes e os apresentam ao
+        usuário como um único sistema coeso. O objetivo é compartilhar recursos,
+        aumentar a capacidade de processamento e a
+        <span class="hl-cyan">tolerância a falhas</span>. É a base da computação
+        em nuvem. Desafios clássicos incluem consistência de dados, latência de
+        rede e detecção de falhas parciais.
       </p>
 
       <h3>Sistemas Embarcados</h3>
       <p>
-        Projetados para dispositivos específicos com recursos limitados de
-        hardware — desde eletrodomésticos até equipamentos industriais.
+        Projetados para funcionar em dispositivos com propósito específico e
+        recursos limitados: pouca memória, CPU de baixo consumo, sem teclado ou
+        monitor. Exemplos incluem sistemas de controle de carros, roteadores,
+        smart TVs e equipamentos médicos. Aqui,
+        <span class="hl-purple">confiabilidade e consumo de energia</span> são
+        mais críticos que interface sofisticada.
       </p>
-      <p>
-        Aqui, consumo de energia, previsibilidade e tempo de resposta costumam
-        ser mais importantes que interface sofisticada. Em muitos casos, o foco
-        é confiabilidade contínua por longos períodos sem intervenção humana.
-      </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -334,88 +529,124 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S5 -->
     <section id="s5">
       <h2>5. Famílias de Sistemas Operacionais</h2>
 
-      <h3><mark class="red">Unix</mark> — "A Origem do Mundo Moderno"</h3>
+      <h3>Unix e Unix-like</h3>
       <p>
-        Criado em 1969 por Ken Thompson e Dennis Ritchie nos Bell Labs. Baseado
-        em modularidade e no conceito de <em>"tudo é arquivo"</em>. Suporta
-        multiusuário e multitarefa preemptiva desde cedo. macOS e Linux são
-        Unix-like; o macOS é certificado como UNIX em várias versões.
+        Criado nos anos 70 nos Bell Labs por
+        <span class="hl-blue">Ken Thompson e Dennis Ritchie</span>, o Unix
+        introduziu conceitos que definem a computação moderna até hoje:
+        multitarefa preemptiva, multiusuário, sistema de arquivos hierárquico e
+        a filosofia de <em>"tudo é um arquivo"</em> — onde dispositivos, sockets
+        e pipes são acessados pela mesma API de leitura/escrita de arquivos.
+      </p>
+      <p>
+        Sistemas <span class="highlight">Unix-like</span> são aqueles que se
+        comportam de maneira semelhante ao Unix original, seguindo o padrão
+        <span class="hl-orange">POSIX</span>, mas sem necessariamente conter seu
+        código original.
       </p>
 
-      <h3><mark class="red">BSD</mark> — Berkeley Software Distribution</h3>
+      <h4>BSD (Berkeley Software Distribution)</h4>
       <p>
-        Nasceu como distribuição do UNIX da Universidade de Berkeley. Diferente
-        do Linux, o <strong>BSD é um sistema inteiro</strong>: kernel + userland
-        + políticas do projeto. Muito respeitado pela estabilidade, segurança e
-        pela influente pilha TCP/IP.
+        Derivado do Unix da AT&T, o BSD evoluiu na Universidade de Berkeley e se
+        tornou um sistema completo e de código aberto. Diferente do Linux — que
+        é apenas o kernel — o BSD é um sistema operacional inteiro, com kernel e
+        userland desenvolvidos de forma coesa pelo mesmo projeto.
       </p>
       <ul>
-        <li><strong>FreeBSD</strong>: foco em performance e servidores</li>
-        <li><strong>OpenBSD</strong>: foco em segurança e auditoria</li>
-        <li><strong>NetBSD</strong>: foco em portabilidade</li>
+        <li>
+          <strong><span class="hl-green">FreeBSD</span></strong
+          >: Foco em performance e recursos avançados de rede. A Netflix usa
+          FreeBSD em seus servidores de streaming.
+        </li>
+        <li>
+          <strong><span class="hl-red">OpenBSD</span></strong
+          >: Foco extremo em segurança e auditoria de código. Origem do OpenSSH.
+        </li>
+        <li>
+          <strong><span class="hl-cyan">NetBSD</span></strong
+          >: Foco em portabilidade — roda em dezenas de arquiteturas de hardware
+          distintas.
+        </li>
       </ul>
 
-      <h3><mark class="gray">Linux</mark> — Kernel + Ecossistema de Distros</h3>
+      <h4>Linux</h4>
       <p>
-        Criado em 1991 por Linus Torvalds. Linux
-        <strong>não é um sistema completo</strong> — é o kernel. O "sistema" é a
-        distribuição: kernel + userland GNU + init + libs + package manager.
+        Tecnicamente, <span class="highlight">Linux é apenas o kernel</span>,
+        criado por <span class="hl-blue">Linus Torvalds em 1991</span>. Um
+        sistema operacional funcional é formado por uma
+        <strong>distribuição</strong>, que combina o kernel Linux com
+        ferramentas GNU, um sistema de init, gerenciador de pacotes e,
+        opcionalmente, um ambiente gráfico.
       </p>
       <p>
-        Esse modelo modular explica por que existem tantas distribuições com
-        propostas diferentes. Todas compartilham o kernel, mas variam em ciclo
-        de atualização, ferramentas padrão, foco de segurança e experiência de
-        administração.
+        Essa natureza modular explica a existência de centenas de distros com
+        focos distintos:
       </p>
+      <ul>
+        <li>
+          <span class="hl-orange">Debian</span>: Estabilidade e lançamentos
+          conservadores. Base do Ubuntu.
+        </li>
+        <li>
+          <span class="hl-blue">Arch Linux</span>: Filosofia KISS (Keep It
+          Simple), rolling release e total controle do usuário.
+        </li>
+        <li>
+          <span class="hl-green">Fedora</span>: Inovação e tecnologias upstream
+          first. Patrocinado pela Red Hat.
+        </li>
+        <li>
+          <span class="hl-purple">Alpine Linux</span>: Extremamente minimalista,
+          base padrão de imagens Docker.
+        </li>
+        <li>
+          <span class="hl-cyan">Ubuntu</span>: Foco em usabilidade, derivado do
+          Debian, amplamente adotado em cloud.
+        </li>
+      </ul>
+
+      <h4>macOS</h4>
       <p>
-        Exemplos: <strong>Arch</strong> (rolling release, KISS),
-        <strong>Debian</strong> (estabilidade máxima),
-        <strong>Ubuntu</strong> (usabilidade, Debian-based),
-        <strong>Fedora</strong> (upstream first),
-        <strong>Alpine</strong> (minimalista, containers). Domina servidores,
-        cloud e containers.
+        O sistema da Apple é um Unix-like oficialmente certificado (POSIX). Seu
+        kernel, <span class="hl-orange">XNU</span>, é um híbrido que combina o
+        microkernel <strong>Mach</strong> com componentes do
+        <strong>BSD</strong>. Acima do kernel, a Apple adiciona suas próprias
+        camadas proprietárias — <em>Darwin, Core Foundation, AppKit</em> — que
+        fornecem a experiência integrada característica do ecossistema Apple.
       </p>
 
-      <h3>
-        <mark class="orange">macOS</mark> — Darwin: UNIX + BSD + Camada
-        Proprietária
-      </h3>
+      <h3>Windows NT</h3>
       <p>
-        Não é baseado em Linux. Usa o kernel <mark class="red">XNU</mark> —
-        híbrido entre Mach (microkernel) e BSD. É certificado como UNIX. Herda
-        estrutura do UNIX e userland inspirado em BSD, com camadas proprietárias
-        da Apple no topo.
+        A família moderna do Windows (desde o XP até o Windows 11) é baseada na
+        arquitetura <span class="highlight">Windows NT</span>, desenvolvida do
+        zero com uma filosofia diferente da do Unix. Possui seu próprio modelo
+        de processos, gerenciamento de memória e um sistema de segurança baseado
+        em <span class="hl-blue">ACLs (Access Control Lists)</span>, com forte
+        integração com o <strong>Active Directory</strong> para ambientes
+        corporativos.
+      </p>
+      <p>
+        Com o <span class="hl-green">WSL2 (Windows Subsystem for Linux)</span>,
+        a Microsoft integrou um kernel Linux completo — rodando via hypervisor
+        leve — ao Windows, permitindo que desenvolvedores executem ferramentas
+        Linux nativamente, com desempenho próximo ao nativo.
       </p>
 
-      <h3><mark class="blue">Windows</mark> — Linha NT</h3>
+      <h3>Android</h3>
       <p>
-        Linhagem completamente diferente de UNIX/Linux. Versões modernas usam a
-        arquitetura <strong>Windows NT</strong> com modelo próprio de processos,
-        ACLs e integração com Active Directory. Não segue "tudo é arquivo" nem
-        POSIX originalmente. O <mark class="green">WSL</mark> adicionou
-        compatibilidade Unix-like.
-      </p>
-      <p>
-        Em ambientes corporativos, essa integração com políticas centralizadas e
-        domínio facilita gestão em larga escala, inventário de máquinas e
-        controle de acesso com rastreabilidade.
+        O Android utiliza o <span class="highlight">kernel Linux</span> como
+        base, mas com modificações significativas para o contexto mobile. Acima
+        do kernel, existe uma pilha completamente diferente: o
+        <span class="hl-blue">Android Runtime (ART)</span> executa aplicativos
+        compilados para bytecode DEX; um modelo de segurança que isola cada app
+        em sua própria sandbox com UID único; e a camada de APIs que os
+        desenvolvedores usam para construir aplicativos.
       </p>
 
-      <h3><mark class="green">Android</mark> — Linux Modificado para Mobile</h3>
-      <p>
-        Usa o kernel Linux, mas substitui grande parte do userland pelo runtime
-        <strong>ART</strong>, framework mobile, sandbox por aplicativo e
-        comunicação via Binder. Cada app roda com UID próprio, isolado dos
-        outros.
-      </p>
-      <p>
-        Esse isolamento por UID é uma decisão de segurança importante em mobile:
-        reduz impacto de apps maliciosos e limita acesso cruzado entre dados de
-        aplicativos sem permissões explícitas.
-      </p>
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -444,49 +675,82 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S6 -->
     <section id="s6">
-      <h2>6. Aplicativos, Utilitários e Serviços</h2>
+      <h2>6. Aplicativos, Utilitários e Serviços (Daemons)</h2>
 
-      <h3><mark class="orange">Aplicativos</mark></h3>
+      <h3>Aplicativos (User Applications)</h3>
       <p>
-        Programas voltados diretamente para o usuário: navegadores, editores de
-        texto, players de vídeo, jogos, softwares de comunicação. Utilizam
-        recursos do SO através de APIs e possuem interface amigável.
+        São os programas com os quais o usuário interage diretamente para
+        realizar uma tarefa. Exemplos: navegador web (Chrome, Firefox), suíte de
+        escritório (Office, LibreOffice), editor de imagens (Photoshop, GIMP).
+        Eles rodam no <span class="hl-green">user space</span> e usam as APIs do
+        SO para acessar recursos de hardware — nunca diretamente.
       </p>
       <p>
-        Mesmo quando parecem simples, aplicativos modernos dependem de múltiplas
-        camadas: renderização gráfica, gerenciamento de memória, pilha de rede e
-        subsistemas de segurança fornecidos pelo sistema operacional.
-      </p>
-
-      <h3><mark class="blue">Utilitários</mark></h3>
-      <p>
-        Programas voltados para
-        <strong>manutenção e gerenciamento do sistema</strong>, não para o
-        usuário diretamente. Exemplos: ferramentas de limpeza de disco, backup,
-        gerenciador de arquivos, compactadores, monitor de sistema.
-      </p>
-      <p>
-        Em contextos profissionais, utilitários são essenciais para
-        observabilidade: ajudam a medir uso de CPU, latência de disco, consumo
-        de RAM e saúde geral do sistema antes que problemas virem incidentes.
+        Essa separação garante duas coisas:
+        <span class="hl-blue">portabilidade</span>
+        (o mesmo app pode rodar em hardware diferente sem reescrita) e
+        <span class="hl-orange">segurança</span> (um app com bug não pode
+        destruir dados de outros processos ou do sistema).
       </p>
 
-      <h3><mark class="red">Serviços</mark></h3>
+      <h3>Utilitários (System Utilities)</h3>
       <p>
-        Executam em segundo plano sem interação direta com o usuário. Iniciados
-        automaticamente com o sistema. Responsáveis por conexões de rede,
-        impressão, atualizações e servidores.
+        São ferramentas para gerenciar e manter o sistema operacional. Embora o
+        usuário possa interagir com eles, seu propósito é
+        <span class="hl-purple">administrar o sistema</span>, e não produzir um
+        trabalho final para o usuário.
       </p>
+      <ul>
+        <li>
+          <strong>Gerenciamento de Processos:</strong>
+          <code>Task Manager</code> (Windows), <code>htop</code> /
+          <code>top</code> (Linux), <code>Activity Monitor</code> (macOS).
+        </li>
+        <li>
+          <strong>Gerenciamento de Disco:</strong>
+          <code>Disk Management</code> (Windows), <code>GParted</code> /
+          <code>fdisk</code> (Linux), <code>Disk Utility</code> (macOS).
+        </li>
+        <li>
+          <strong>Monitoramento de Rede:</strong> <code>netstat</code>,
+          <code>ss</code>, <code>Wireshark</code> — analisam conexões ativas,
+          latência e tráfego.
+        </li>
+        <li>
+          <strong>Linha de Comando:</strong> <code>cp</code>, <code>mv</code>,
+          <code>rm</code>, <code>grep</code>, <code>awk</code> (Linux/macOS) —
+          ferramentas fundamentais para automação e scripting.
+        </li>
+      </ul>
+
+      <h3>Serviços ou Daemons</h3>
       <p>
-        Serviços bem configurados aumentam disponibilidade. Serviços mal
-        configurados viram gargalos silenciosos, porque consomem recursos sem
-        sinal evidente na interface.
+        São programas que rodam continuamente em
+        <span class="hl-cyan">segundo plano</span>, sem interface gráfica,
+        geralmente iniciando junto com o sistema. Eles fornecem funcionalidades
+        essenciais para o SO e para outros programas.
       </p>
       <blockquote>
         No Linux são chamados de <strong>daemons</strong>; no Windows são
         conhecidos como <strong>services</strong>.
       </blockquote>
+      <p>
+        Exemplos comuns: servidores web (<code>nginx</code>,
+        <code>httpd</code>), servidores de banco de dados (<code>mysqld</code>,
+        <code>postgresql</code>), serviços de acesso remoto (<code>sshd</code>)
+        e agendadores de tarefas (<code>cron</code>,
+        <code>systemd timers</code>).
+      </p>
+      <p>
+        No Linux moderno, o <span class="hl-orange">systemd</span> é o sistema
+        de init padrão na maioria das distros. Ele gerencia o ciclo de vida de
+        todos os serviços — start, stop, restart, status — além de centralizar
+        logs via <code>journald</code>, o que facilita muito o diagnóstico de
+        problemas em produção.
+      </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -510,33 +774,63 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S7 -->
     <section id="s7">
-      <h2>7. Tipos de Interfaces (CLI e GUI)</h2>
+      <h2>7. Interfaces de Usuário: CLI e GUI</h2>
 
-      <h3><mark class="purple">CLI</mark> — Command Line Interface</h3>
+      <h3>CLI (Command-Line Interface)</h3>
       <p>
-        Interface baseada em texto. O usuário digita comandos para executar
-        ações. Funciona via interpretadores como bash, zsh, PowerShell e cmd.
-        Exige mais conhecimento técnico, mas oferece maior controle, leveza e é
-        ideal para automação e servidores.
+        A <span class="highlight">Interface de Linha de Comando</span> é baseada
+        em texto. O usuário interage com o sistema digitando comandos em um
+        terminal. É altamente eficiente, consome poucos recursos e é ideal para
+        automação, scripts e gerenciamento de servidores remotos.
       </p>
       <p>
-        A CLI também favorece reprodutibilidade: comandos podem virar scripts,
-        versionados e executados de forma padronizada em múltiplos ambientes.
+        Exemplos de shells incluem <code class="hl-green">bash</code> e
+        <code class="hl-green">zsh</code> no mundo Unix/Linux, e
+        <code class="hl-blue">PowerShell</code> e <code>cmd.exe</code> no
+        Windows. A capacidade de encadear comandos com pipes (<code>|</code>) e
+        redirecionar saídas (<code>&gt;</code>, <code>&gt;&gt;</code>) é uma das
+        características mais poderosas da CLI — permite construir pipelines
+        complexos combinando ferramentas simples.
+      </p>
+      <p>
+        Outro ponto crítico: a CLI favorece
+        <span class="hl-orange">reprodutibilidade</span>. Um conjunto de
+        comandos pode ser salvo como um script, versionado no Git e executado de
+        forma idêntica em qualquer ambiente — algo muito difícil de replicar em
+        interfaces gráficas.
       </p>
 
-      <h3><mark class="blue">GUI</mark> — Graphical User Interface</h3>
+      <h3>GUI (Graphical User Interface)</h3>
       <p>
-        Interface gráfica com janelas, ícones, botões e menus. Permite interação
-        visual sem memorizar comandos. Exemplos: Windows Explorer, GNOME/KDE no
-        Linux, Finder no macOS. Mais acessível, mas consome mais recursos do
-        sistema.
+        A <span class="highlight">Interface Gráfica do Usuário</span> utiliza
+        elementos visuais — janelas, ícones, menus e ponteiros (modelo
+        <span class="hl-purple">WIMP</span>). É mais intuitiva e fácil de
+        aprender para a maioria dos usuários. Exemplos incluem o ambiente de
+        trabalho do Windows, o Aqua do macOS e ambientes como
+        <span class="hl-blue">GNOME</span> e
+        <span class="hl-orange">KDE Plasma</span> para Linux.
       </p>
       <p>
-        Em equipes técnicas, GUI e CLI não competem: se complementam. GUI
-        acelera tarefas exploratórias e CLI acelera operações repetitivas e
-        automação.
+        Em equipes técnicas, GUI e CLI não competem:
+        <span class="hl-cyan">se complementam</span>. GUI acelera tarefas
+        exploratórias e visuais; CLI acelera operações repetitivas, automação e
+        administração remota de servidores onde uma interface gráfica seria
+        desperdício de recursos.
       </p>
+
+      <h3>TUI (Text User Interface)</h3>
+      <p>
+        Existe ainda um terceiro modelo, menos comentado: a
+        <span class="hl-green">TUI (Text-based User Interface)</span>. São
+        interfaces interativas que rodam no terminal, mas com elementos visuais
+        como painéis, menus e formulários construídos com caracteres. Exemplos:
+        <code>htop</code>, <code>vim</code>, <code>ncdu</code>,
+        <code>lazygit</code>. Combinam a leveza da CLI com parte da usabilidade
+        da GUI.
+      </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -555,35 +849,85 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S8 -->
     <section id="s8">
       <h2>8. Sistema de Arquivos</h2>
       <p>
-        O <strong>Sistema de Arquivos</strong> é a estrutura que o SO usa para
-        organizar e armazenar dados no disco. Sem ele, o disco seria apenas
-        blocos sem organização. Ele define como arquivos são nomeados,
-        armazenados, organizados em diretórios, como funcionam permissões e como
-        ocorre leitura/escrita.
+        O <strong>Sistema de Arquivos</strong> (<em>Filesystem</em>) é a
+        estrutura lógica que o SO utiliza para organizar, nomear, armazenar e
+        recuperar arquivos em um dispositivo de armazenamento. Sem ele, o disco
+        seria apenas um amontoado de blocos de dados sem nenhuma estrutura ou
+        significado.
       </p>
 
-      <h3>Exemplos</h3>
+      <h4>Principais Sistemas de Arquivos:</h4>
       <ul>
-        <li><strong>NTFS</strong> — Windows</li>
-        <li><strong>ext4</strong> — Linux</li>
-        <li><strong>APFS</strong> — macOS</li>
-        <li><strong>FAT32 / exFAT</strong> — compatibilidade geral</li>
+        <li>
+          <strong
+            ><span class="hl-blue">NTFS</span> (New Technology File
+            System):</strong
+          >
+          Padrão do Windows. Suporta permissões avançadas (ACLs), compressão,
+          criptografia nativa (EFS) e journaling.
+        </li>
+        <li>
+          <strong
+            ><span class="hl-orange">ext4</span> (Fourth Extended
+            Filesystem):</strong
+          >
+          Padrão na maioria das distribuições Linux. Robusto, rápido, com
+          journaling e suporte a volumes de até 1 exabyte.
+        </li>
+        <li>
+          <strong
+            ><span class="hl-purple">APFS</span> (Apple File System):</strong
+          >
+          Padrão do macOS, iOS e outros dispositivos Apple. Otimizado para
+          armazenamento flash (SSDs), com suporte nativo a snapshots e
+          criptografia forte.
+        </li>
+        <li>
+          <strong
+            ><span class="hl-cyan">Btrfs</span> (B-tree Filesystem):</strong
+          >
+          Sistema de arquivos moderno para Linux com suporte a snapshots,
+          subvolumes, checksums de integridade e RAID embutido. Padrão no Fedora
+          e openSUSE.
+        </li>
+        <li>
+          <strong><span class="hl-green">FAT32 / exFAT</span>:</strong>
+          Sistemas mais simples, usados para garantir compatibilidade entre
+          diferentes SOs (ex: pen drives, cartões SD).
+        </li>
       </ul>
 
+      <h3>Journaling: Proteção Contra Corrupção</h3>
       <p>
-        Tecnicamente, trabalha com blocos de dados, inodes (no Linux), tabelas
-        de alocação e <strong>journaling</strong> — registro de alterações para
-        evitar corrupção. Garante integridade dos dados, controle de acesso e
-        recuperação após falhas.
+        Um recurso crucial dos sistemas de arquivos modernos é o
+        <span class="hl-red">journaling</span>. Antes de realizar uma escrita no
+        disco, o sistema primeiro registra a operação em um "diário" (journal).
+        Se o sistema travar no meio da operação (queda de energia, kernel
+        panic), ele pode usar o journal após a reinicialização para completar a
+        tarefa ou revertê-la, evitando a corrupção de dados.
+      </p>
+
+      <h3>Inodes e Estrutura Interna</h3>
+      <p>
+        No Linux e sistemas Unix-like, cada arquivo é representado por um
+        <span class="hl-purple">inode</span> — uma estrutura de dados que
+        armazena metadados do arquivo: permissões, dono, timestamps, tamanho e
+        ponteiros para os blocos de dados no disco. O nome do arquivo não fica
+        no inode, mas em uma entrada de diretório que aponta para ele. Isso
+        permite recursos como <em>hard links</em>: múltiplos nomes apontando
+        para o mesmo inode (e, portanto, para os mesmos dados).
       </p>
       <p>
-        Além do formato do sistema de arquivos, performance depende de
-        fragmentação, política de cache, tipo de armazenamento (SSD/NVMe/HDD) e
-        padrão de acesso (sequencial ou aleatório).
+        Além do formato, a performance do sistema de arquivos depende de:
+        <span class="hl-cyan">fragmentação</span>, política de cache de leitura
+        e escrita, tipo de armazenamento (SSD/NVMe/HDD) e padrão de acesso
+        (sequencial ou aleatório).
       </p>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -602,100 +946,86 @@
 
     <hr />
 
+    <!-- ═══════════════════════════════════════════════════════ S9 -->
     <section id="s9">
-      <h2>9. Aplicativos, Utilitários e Serviços (aprofundado)</h2>
-
-      <h3>9.1 — <mark class="orange">Aplicativos</mark></h3>
+      <h2>9. Virtualização e Containers</h2>
       <p>
-        Não acessam o hardware diretamente. Utilizam
-        <mark class="green">APIs e bibliotecas do sistema</mark> como
-        intermediárias. Exemplos: Chrome, Firefox, Word, LibreOffice, Photoshop,
-        GIMP, Discord, Telegram. Geralmente possuem GUI e são instalados pelo
-        usuário.
-      </p>
-      <p>
-        Isso garante portabilidade e segurança: em vez de manipular hardware
-        bruto, o aplicativo segue contratos definidos pelo SO, que valida e
-        controla cada chamada sensível.
+        A virtualização é a tecnologia que permite criar representações virtuais
+        de recursos físicos — servidores, armazenamento, redes — permitindo que
+        um único hardware físico seja compartilhado por múltiplos ambientes
+        isolados e independentes.
       </p>
 
-      <h3>9.2 — <mark class="blue">Utilitários</mark></h3>
-      <p>Voltados para administração e otimização do sistema. Exemplos:</p>
+      <h3>Máquinas Virtuais (VMs)</h3>
+      <p>
+        Uma VM é a emulação completa de um sistema computacional. O
+        <span class="highlight">Hypervisor</span> (VMM — Virtual Machine
+        Monitor) é o software que cria e gerencia as VMs, alocando recursos
+        físicos (CPU, RAM, disco) para cada uma. Cada VM executa um sistema
+        operacional completo (<em>guest OS</em>), totalmente isolado do sistema
+        hospedeiro (<em>host</em>) e de outras VMs.
+      </p>
       <ul>
         <li>
-          Gerenciadores de disco: Disk Management (Windows), GParted (Linux)
-        </li>
-        <li>Monitor de processos: Task Manager, top, htop</li>
-        <li>Compactadores: WinRAR, 7-Zip, tar, gzip</li>
-        <li>Ferramentas de backup e diagnóstico</li>
-      </ul>
-      <p>
-        Para administração de ambientes reais, utilitários são a primeira linha
-        de análise: coletam evidências, ajudam no troubleshooting e sustentam
-        decisões de capacity planning.
-      </p>
-
-      <h3>9.3 — <mark class="red">Serviços (Daemons)</mark></h3>
-      <p>
-        Executam em segundo plano, sem interface gráfica. Exemplos: serviços de
-        rede e impressão, atualizações automáticas, servidores web (Apache,
-        Nginx) e bancos de dados (MySQL, PostgreSQL).
-      </p>
-      <p>
-        Em Linux, ferramentas como `systemd` facilitam controle de ciclo de vida
-        (start, stop, restart, status) e padronizam logs, melhorando operação e
-        resposta a incidentes.
-      </p>
-      <h3>Referências do tópico</h3>
-      <ul class="topic-refs">
-        <li>
-          <a href="https://pt.wikipedia.org/wiki/Software_aplicativo"
-            >Wikipédia - Software aplicativo</a
+          <strong
+            ><span class="hl-blue">Hypervisor Tipo 1 (Bare-metal)</span
+            >:</strong
           >
+          Roda diretamente sobre o hardware físico, sem um SO hospedeiro.
+          Exemplos: <strong>VMware ESXi</strong>, <strong>Xen</strong>,
+          <strong>Hyper-V</strong> (em servidores). Melhor desempenho e é o
+          padrão em data centers e cloud.
         </li>
         <li>
-          <a href="https://pt.wikipedia.org/wiki/Systemd"
-            >Wikipédia - systemd</a
+          <strong
+            ><span class="hl-green">Hypervisor Tipo 2 (Hosted)</span>:</strong
           >
+          Roda como um aplicativo dentro de um SO já existente. Exemplos:
+          <strong>VirtualBox</strong>, <strong>VMware Workstation</strong>,
+          <strong>Parallels</strong> (macOS). Mais fácil de usar, ideal para
+          desktops e ambientes de desenvolvimento.
         </li>
       </ul>
-    </section>
-
-    <hr />
-
-    <section id="s10">
-      <h2>10. Virtualização</h2>
-      <p>
-        Tecnologia que permite criar
-        <strong>versões virtuais de recursos físicos</strong>: sistemas
-        operacionais, servidores, armazenamento ou redes. Um único computador
-        físico pode executar vários SOs ao mesmo tempo, cada um de forma
-        independente e isolada.
-      </p>
-      <p>
-        Isso é possível pelo <strong>hypervisor</strong>, software que cria e
-        gerencia <strong>máquinas virtuais (VMs)</strong>. Cada VM simula um
-        computador completo. Muito usado em cloud, testes de software e
-        desenvolvimento.
-      </p>
-      <p>
-        Existem hypervisors tipo 1 (bare-metal) e tipo 2 (hosted). O tipo 1
-        tende a oferecer melhor desempenho e isolamento; o tipo 2 é comum em
-        laboratórios e uso pessoal.
-      </p>
 
       <h3>Containers</h3>
       <p>
-        Diferente das VMs, containers não virtualizam o hardware inteiro.
-        Compartilham o kernel do sistema, mas isolam processos, rede e sistema
-        de arquivos. São mais leves e eficientes, muito usados em cloud e
-        desenvolvimento (Docker, por exemplo).
+        Diferente das VMs, os <span class="highlight">containers</span> não
+        virtualizam o hardware — eles virtualizam o
+        <span class="hl-orange">sistema operacional</span>. Múltiplos containers
+        compartilham o mesmo kernel do host, mas cada um possui seu próprio
+        espaço de usuário isolado: processos, sistema de arquivos, variáveis de
+        ambiente e interfaces de rede.
       </p>
       <p>
-        Esse modelo reduz overhead e acelera deploy, mas exige atenção com
-        segurança de imagens, controle de recursos e observabilidade em
-        produção.
+        Por compartilharem o kernel, containers são
+        <span class="hl-green">extremamente leves</span> — iniciam em
+        milissegundos e consomem muito menos memória que VMs.
+        <strong>Docker</strong> e <strong>Podman</strong> são as ferramentas
+        mais populares. Essa tecnologia revolucionou o desenvolvimento de
+        software e é a base da arquitetura de
+        <span class="hl-purple">microsserviços</span> e plataformas como
+        <strong>Kubernetes</strong>.
       </p>
+
+      <h3>VMs vs. Containers: Quando Usar Cada Um?</h3>
+      <ul>
+        <li>
+          <span class="hl-blue">VMs</span>: quando você precisa de
+          <strong>isolamento completo</strong>, rodar SOs diferentes no mesmo
+          hardware, ou emular ambientes de segurança crítica.
+        </li>
+        <li>
+          <span class="hl-green">Containers</span>: quando você precisa de
+          <strong>leveza, velocidade de deploy e escalabilidade</strong> —
+          especialmente em aplicações cloud-native e CI/CD.
+        </li>
+        <li>
+          <span class="hl-orange">Combinação</span>: em nuvens públicas como AWS
+          e GCP, containers geralmente rodam <em>dentro</em> de VMs,
+          aproveitando o isolamento das VMs e a agilidade dos containers.
+        </li>
+      </ul>
+
       <h3>Referências do tópico</h3>
       <ul class="topic-refs">
         <li>
@@ -737,15 +1067,15 @@
       </p>
       <p>
         Em um contexto profissional, dominar esses fundamentos melhora muito a
-        tomada de decisão: desde escolha de infraestrutura até diagnóstico de
-        falhas, desempenho e segurança em aplicações reais.
+        tomada de decisão: desde a escolha de infraestrutura até o diagnóstico
+        de falhas, otimização de desempenho e segurança em aplicações reais.
       </p>
       <p>
-        Lembrando que tanto a página web quanto o material em si, vai estar no
-        meu github disponivel em meu
+        Tanto a página web quanto o material em si estão disponíveis no GitHub
+        em
         <a href="https://github.com/LuanBertozzi7/sistemas-operacionais"
-          >repositorio - sistemas operacionais</a
-        >
+          >repositório - sistemas operacionais</a
+        >.
       </p>
     </section>
 

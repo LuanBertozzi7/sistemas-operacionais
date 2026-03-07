@@ -70,6 +70,15 @@ function initThemeToggle() {
     applyTheme(nextTheme);
     localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
   });
+
+  // Ouve mudanças na preferência de cor do sistema operacional
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    });
 }
 
 async function renderLastRepoUpdate() {

@@ -1,6 +1,12 @@
 body.dark-theme {
   color: #e6e8ef;
   background: #111319;
+
+  --highlight-bg: rgba(135, 166, 255, 0.15);
+  --highlight-text: #b8c9ff;
+  --code-bg: #2b303d;
+  --code-border: #3a4356;
+  --code-text: #e6e8ef;
 }
 
 body.dark-theme header,
@@ -52,36 +58,6 @@ body.dark-theme blockquote {
 
 body.dark-theme #progress {
   background: #87a6ff;
-}
-
-body.dark-theme mark.blue {
-  background: #234180;
-  color: #dce8ff;
-}
-
-body.dark-theme mark.green {
-  background: #1f5f4a;
-  color: #d5f9eb;
-}
-
-body.dark-theme mark.orange {
-  background: #7a451a;
-  color: #ffe6d2;
-}
-
-body.dark-theme mark.red {
-  background: #7b2a2a;
-  color: #ffe0e0;
-}
-
-body.dark-theme mark.purple {
-  background: #4a3275;
-  color: #efe7ff;
-}
-
-body.dark-theme mark.gray {
-  background: #343a47;
-  color: #e6eaf2;
 }
 
 body.dark-theme .footer-signature,
