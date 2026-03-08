@@ -15,6 +15,29 @@ const GITHUB_ICON_DARK = "./resources/github-clean.svg";
 const THEME_ICON_MOON = "./resources/moon.svg";
 const THEME_ICON_SUN = "./resources/sun.svg";
 
+function getPreferredTheme(key) {
+  const stored = localStorage.getItem(key);
+  if (stored) return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function NextTheme(isDark) {
+  return isDark ? "light" : "dark";
+}
+
+function getScrollProgress(scrolled, total) {
+  if (total <= 0) return 0;
+  return (scrolled / total) * 100;
+}
+
+function formatDatePtBr(dateString, timeZone) {
+  return new Intl.DateTimeFormat("pt-BR", {
+    dateStyle: "short",
+    timeStyle: "medium",
+    timeZone,
+  }).format(new Date(dateString));
+}
+
 function applyTheme(theme) {
   const isDark = theme === "dark";
   document.body.classList.toggle("dark-theme", isDark);

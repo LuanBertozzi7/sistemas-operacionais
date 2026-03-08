@@ -29,6 +29,31 @@ mark.gray {
   color: #444;
 }
 
+.hl-blue {
+  color: #4da6ff;
+  font-weight: 500;
+}
+.hl-green {
+  color: #4caf82;
+  font-weight: 500;
+}
+.hl-orange {
+  color: #e08a3c;
+  font-weight: 500;
+}
+.hl-purple {
+  color: #b07fd4;
+  font-weight: 500;
+}
+.hl-red {
+  color: #e05c5c;
+  font-weight: 500;
+}
+.hl-cyan {
+  color: #4dd0e1;
+  font-weight: 500;
+}
+
 span.green {
   color: #1a7a58;
   font-weight: bold;
