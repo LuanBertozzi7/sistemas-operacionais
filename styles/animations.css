@@ -1,0 +1,12 @@
+h1 {
+  animation: glowText 4s infinite alternate;
+}
+
+@keyframes glowText {
+  0% {
+    color: #1a7a58;
+  }
+  100% {
+    color: #b54800;
+  }
+}

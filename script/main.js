@@ -64,7 +64,7 @@ function initThemeToggle() {
   applyTheme(getPreferredTheme(THEME_STORAGE_KEY));
 
   THEME_TOGGLE.addEventListener("click", () => {
-    const nextTheme = getNextTheme(
+    const nextTheme = NextTheme(
       document.body.classList.contains("dark-theme"),
     );
     applyTheme(nextTheme);

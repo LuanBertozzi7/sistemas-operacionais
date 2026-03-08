@@ -1,0 +1,26 @@
+{
+  "name": "web-sistemasoperacionais",
+  "version": "1.0.0",
+  "description": "Projeto estático em HTML, CSS e JavaScript com conteúdo técnico sobre Sistemas Operacionais.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuanBertozzi7/sistemas-operacionais.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LuanBertozzi7/sistemas-operacionais/issues"
+  },
+  "homepage": "https://github.com/LuanBertozzi7/sistemas-operacionais#readme",
+  "dependencies": {
+    "vite": "^7.3.1"
+  }
+}
